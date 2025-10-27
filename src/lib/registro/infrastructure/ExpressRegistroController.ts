@@ -1,14 +1,16 @@
 import { NextFunction, Request, Response } from "express";
-import { ServiceContainer } from "../../Shared/infrastructure/ServiceContainer";
+import { ServiceContainer } from "../../Shared/infrastructure/ServiceContainer"; // Asume que este es el contenedor central
 import { registroNotFoundError } from "../domain/registroNotFoundError"; 
 
 export class ExpressRegistroController {
-    
+
     // GET /registros
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
+            // Llama al caso de uso para obtener todos los registros
             const registros = await ServiceContainer.registro.getAll.run();
-            return res.status(200).json(registros.map((reg) => reg.mapToPrimitives()));
+            // Convierte cada entidad a primitivos antes de la respuesta JSON
+            return res.status(200).json(registros.map((registro) => registro.mapToPrimitives()));
         } catch (error) {
             next(error);
         }
@@ -17,27 +19,34 @@ export class ExpressRegistroController {
     // GET /registros/:id
     async getOneById(req: Request, res: Response, next: NextFunction) {
         try {
+            // Llama al caso de uso para obtener un registro por ID
             const registro = await ServiceContainer.registro.getOneById.run(req.params.id);
+            
+            // Devuelve el registro encontrado (convertido a primitivos)
             return res.status(200).json(registro.mapToPrimitives());
+            
         } catch (error) {
             if (error instanceof registroNotFoundError) {
+                // Maneja el error específico de "No encontrado"
                 return res.status(404).json({ message: error.message });
             }
-            next(error);
-        }
+            next(error); 
+        } 
     }
 
     // POST /registros
     async create(req: Request, res: Response, next: NextFunction) {
         try {
+            // Campos específicos del registro
             const { id, prestamoDate, devolucionDate, estado, createdAt } = req.body as {
                 id: string;
                 prestamoDate: string;
                 devolucionDate: string;
-                estado: string;
+                estado: string; // Ej: 'ACTIVO'
                 createdAt: string;
             };
 
+            // Llama al caso de uso para crear el registro
             await ServiceContainer.registro.create.run(
                 id,
                 new Date(prestamoDate),
@@ -46,14 +55,16 @@ export class ExpressRegistroController {
                 new Date(createdAt)
             );
 
-            return res.status(201).json({ id, prestamoDate, devolucionDate, estado, createdAt });
+            // Devuelve 201 Created y el objeto creado
+            const createdRegistro = { id, prestamoDate, devolucionDate, estado, createdAt };
+            return res.status(201).json(createdRegistro); 
 
         } catch (error) {
             next(error);
         }
     }
 
-    // PUT/PATCH /registros/:id
+    // PUT/PATCH /registros
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
             const { id, prestamoDate, devolucionDate, estado, createdAt } = req.body as {
@@ -63,7 +74,8 @@ export class ExpressRegistroController {
                 estado: string;
                 createdAt: string;
             };
-            
+
+            // Llama al caso de uso para editar el registro (ej. al cambiar el estado a 'DEVUELTO')
             await ServiceContainer.registro.edit.run(
                 id,
                 new Date(prestamoDate),
@@ -72,8 +84,10 @@ export class ExpressRegistroController {
                 new Date(createdAt)
             );
 
-            return res.status(200).json({ id, prestamoDate, devolucionDate, estado, createdAt });
-
+            // Devuelve 200 OK y el objeto actualizado
+            const updatedRegistro = { id, prestamoDate, devolucionDate, estado, createdAt }; 
+            return res.status(200).json(updatedRegistro); 
+            
         } catch (error) {
             if (error instanceof registroNotFoundError) {
                 return res.status(404).json({ message: error.message });
@@ -87,8 +101,10 @@ export class ExpressRegistroController {
         try {
             const idToDelete = req.params.id;
             
+            // Llama al caso de uso para eliminar el registro
             await ServiceContainer.registro.delete.run(idToDelete);
             
+            // Devuelve 200 OK y un mensaje JSON
             return res.status(200).json({ 
                 message: `Registro con ID ${idToDelete} eliminado exitosamente.` 
             });

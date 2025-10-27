@@ -1,9 +1,9 @@
 import { estudianteId } from "../../domain/estudianteId";
-import { EstudianteRepository } from "../../domain/estudianteRepository"; 
+import { estudianteRepository } from "../../domain/estudianteRepository"; 
 
 export class EstudianteDelete {
     
-    constructor(private repository: EstudianteRepository) {}
+    constructor(private repository: estudianteRepository) {}
     async run(id: string): Promise<void> {
         await this.repository.delete(new estudianteId(id));
     }

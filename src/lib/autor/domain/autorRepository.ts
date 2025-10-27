@@ -1,7 +1,5 @@
 import { autor } from "./autor"; 
 import { autorId } from "./autorId"; 
-
-
 export interface AutorRepository {
 
     create(autor: autor): Promise<void>;

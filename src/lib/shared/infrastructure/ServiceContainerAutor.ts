@@ -18,9 +18,9 @@
 
 // autorContainer.ts
 
-import { InMemoryAutorRepository } from "../..autor/infrastructure/InMemoryAutorRepository";
+import { InMemoryAutorRepository } from "../../autor/infrastructure/InMemoryAutorRepository";
 import { AutorGetAll } from "../../autor/application/autorGetAll/autorGetAll";
-import { AutorGetOneById } from "../../autor/application/autorGetOneById/autorGetOneById";
+import { AutorGetOneById } from "../../autor/application/autorGetOneByld/autorGetOneByld";
 import { AutorCreate } from "../../autor/application/autorCreate/autorCreate";
 import { AutorEdit } from "../../autor/application/autorEdit/autorEdit";
 import { AutorDelete } from "../../autor/application/autorDelete/autorDelete";

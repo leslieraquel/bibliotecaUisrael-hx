@@ -59,3 +59,33 @@
 //     return !!result;
 //   }
 // }
+import { estudiante } from "../domain/estudiante";
+import { estudianteId } from "../domain/estudianteId";
+import { estudianteRepository } from "../domain/estudianteRepository";
+
+export class InMemoryEstudianteRepository implements estudianteRepository {
+    private estudiantes: estudiante[] = [];
+    
+    async create(estudiante: estudiante): Promise<void> {
+        this.estudiantes.push(estudiante);
+    }
+    
+    async getAll(): Promise<estudiante[]> {
+        return this.estudiantes;
+    }
+    
+    async getOneById(id: estudianteId): Promise<estudiante | null> {
+        return this.estudiantes.find((e) => e.id.value === id.value) || null;
+    }
+    
+    async edit(estudiante: estudiante): Promise<void> {
+        const index = this.estudiantes.findIndex((e) => e.id.value === estudiante.id.value);
+        if (index !== -1) {
+            this.estudiantes[index] = estudiante;
+        }
+    }
+    
+    async delete(id: estudianteId): Promise<void> {
+        this.estudiantes = this.estudiantes.filter((estudiante) => estudiante.id.value !== id.value);
+    }
+}

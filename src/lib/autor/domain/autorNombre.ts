@@ -6,7 +6,6 @@ export class autorNombre {
         this.ensureIsValid();
     }
     private ensureIsValid(): void {
-        // ** Aquí va la lógica de validación específica del nombre del autor **
         if (this.value === null || this.value === undefined || this.value.trim().length === 0) {
             throw new Error('El nombre del autor no puede estar vacío.');
         }

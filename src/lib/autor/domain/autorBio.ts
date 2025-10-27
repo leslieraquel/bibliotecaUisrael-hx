@@ -6,7 +6,6 @@ export class autorBio{
         this.ensureIsValid();
     }
     private ensureIsValid(){
-  
     }
 }
 

@@ -1,0 +1,10 @@
+export class registroDevolucion{
+    value: Date;
+
+    constructor(value: Date){
+        this.value = value;
+        this.ensureIsValid();
+    }
+    private ensureIsValid(){
+    }
+}

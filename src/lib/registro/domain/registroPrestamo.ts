@@ -6,6 +6,5 @@ export class registroPrestamo{
         this.ensureIsValid();
     }
     private ensureIsValid(){
-       
     }
 }
