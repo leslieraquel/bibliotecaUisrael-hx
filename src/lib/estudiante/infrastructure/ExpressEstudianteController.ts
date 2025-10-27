@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ServiceContainer } from "../../Shared/infrastructure/ServiceContainer";
+import { ServiceContainer } from "../../shared/infrastructure/ServiceContainerAuto";
 import { estudianteNotFoundError } from "../domain/estudianteNotFoundError"; 
 
 export class ExpressEstudianteController {
