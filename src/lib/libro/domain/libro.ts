@@ -3,6 +3,7 @@ import { libroTitle } from "./libroTitle";
 import { libroIsbn } from "./libroIsbn";
 import { libroEditorial } from "./libroEditorial";
 import { libroYear } from "./libroYear";
+import { libroIdAutor } from "./libroIdAutor";
 import { libroCreatedAt } from "./libroCreatedAt";
 import { libroUpdateAt } from "./libroUpdateAt";
 
@@ -12,6 +13,7 @@ export class libro {
     isbn: libroIsbn;
     editorial: libroEditorial;
     year: libroYear;
+    idAutor: libroIdAutor;
     createdAt: libroCreatedAt;
     updateAt: libroUpdateAt;
 
@@ -21,6 +23,7 @@ export class libro {
         isbn: libroIsbn,
         editorial: libroEditorial,
         year: libroYear,
+        idAutor: libroIdAutor,
         createdAt: libroCreatedAt,
         updateAt: libroUpdateAt
     ) {
@@ -29,6 +32,7 @@ export class libro {
         this.isbn = isbn;
         this.editorial = editorial;
         this.year = year;
+        this.idAutor=idAutor;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
     }
@@ -46,6 +50,7 @@ export class libro {
             isbn: this.isbn.value,
             editorial: this.editorial.value,
             year: this.year.value,
+            idAutor:this.idAutor.value,
             createdAt: this.createdAt.value,
             updateAt: this.updateAt.value,
         };

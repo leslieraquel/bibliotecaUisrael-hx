@@ -6,8 +6,8 @@ export class registroCreateAt{
         this.ensureIsValid();
     }
     private ensureIsValid(){
-        if(this.value > new Date()){
-            throw new Error("La fecha de creacion debe ser menor al dia actual");
-        }
+        // if(this.value > new Date()){
+        //     throw new Error("La fecha de creacion debe ser menor al dia actual");
+        // }
     }
 }

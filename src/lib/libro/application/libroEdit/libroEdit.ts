@@ -6,6 +6,8 @@ import { libroIsbn } from "../../domain/libroIsbn";
 import { libroTitle } from "../../domain/libroTitle";
 import { libroUpdateAt } from "../../domain/libroUpdateAt";
 import { libroYear } from "../../domain/libroYear";
+import { libroIdAutor } from "../../domain/libroIdAutor";
+
 import { LibroRepository } from "../../domain/libroRepository";
 
 export class LibroEdit {
@@ -17,6 +19,7 @@ export class LibroEdit {
         isbn: string,
         editorial: string,
         year: string, 
+        idAutor: string, 
         createdAt: Date,
         updateAt: Date
     ): Promise<void> {
@@ -26,6 +29,7 @@ export class LibroEdit {
             new libroIsbn(isbn),
             new libroEditorial(editorial),
             new libroYear(year),
+            new libroIdAutor(idAutor),
             new libroCreatedAt(createdAt),
             new libroUpdateAt(updateAt)
         );
