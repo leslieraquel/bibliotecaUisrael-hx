@@ -8,8 +8,6 @@ import { libroCreatedAt } from "../domain/libroCreatedAt";
 import { libroUpdateAt } from "../domain/libroUpdateAt";
 import { libroYear } from "../domain/libroYear";
 import { libroIdAutor } from "../domain/libroIdAutor";
-
-
 import { LibroRepository } from "../domain/libroRepository";
 import { LibroModel } from "./modelLibro";
 
