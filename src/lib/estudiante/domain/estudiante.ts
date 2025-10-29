@@ -32,6 +32,7 @@ export class estudiante{
             id:this.id.value,
             name:this.name.value,
             email:this.email.value,
+            carrera:this.carrera.value,
             createdAt:this.createdAt.value,
         };
     }

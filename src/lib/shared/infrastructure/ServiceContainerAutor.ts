@@ -29,10 +29,13 @@ import { AutorDelete } from "../../autor/application/autorDelete/autorDelete";
 const AutorRepository = new InMemoryAutorRepository();
 
 // 2. Definir y exportar los servicios para el dominio Autor
-export const AutorServices = {
-    getAll: new AutorGetAll(AutorRepository),
-    getOneById: new AutorGetOneById(AutorRepository),
-    create: new AutorCreate(AutorRepository),
-    edit: new AutorEdit(AutorRepository),
-    delete: new AutorDelete(AutorRepository),
+export const AutorServicesAutor = {
+autor:{
+ getAll: new AutorGetAll(AutorRepository),
+ getOneById: new AutorGetOneById(AutorRepository),
+ create: new AutorCreate(AutorRepository),
+ edit: new AutorEdit(AutorRepository),
+ delete: new AutorDelete(AutorRepository)
+} 
+
 };

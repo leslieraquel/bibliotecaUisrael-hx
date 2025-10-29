@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ServiceContainerAutor } from "../../shared/infrastructure/ServiceContainerAutor"; 
+import { AutorServicesAutor } from "../../shared/infrastructure/ServiceContainerAutor"; 
 import { autorNotFoundError } from "../domain/autorNotFoundError"; // Asume que el error de dominio es 'autorNotFoundError'
 
 export class ExpressAutorController {
@@ -8,7 +8,7 @@ export class ExpressAutorController {
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             // Llama al caso de uso para obtener todos los autores
-            const autores = await ServiceContainerAutor.autor.getAll.run();
+            const autores = await AutorServicesAutor.autor.getAll.run();
             // Convierte cada entidad a primitivos antes de la respuesta JSON
             return res.status(200).json(autores.map((autor) => autor.mapToPrimitives()));
         } catch (error) {
@@ -20,7 +20,7 @@ export class ExpressAutorController {
     async getOneById(req: Request, res: Response, next: NextFunction) {
         try {
             // Llama al caso de uso para obtener un autor por ID
-            const autor = await ServiceContainerAutor.autor.getOneById.run(req.params.id);
+            const autor = await AutorServicesAutor.autor.getOneById.run(req.params.id);
             
             // Devuelve el autor encontrado (convertido a primitivos)
             return res.status(200).json(autor.mapToPrimitives());
@@ -46,7 +46,7 @@ export class ExpressAutorController {
             };
 
             // Llama al caso de uso para crear el autor
-            await ServiceContainerAutor.autor.create.run(
+            await AutorServicesAutor.autor.create.run(
                 id,
                 name,
                 bio,
@@ -75,7 +75,7 @@ export class ExpressAutorController {
             };
 
             // Llama al caso de uso para editar el autor
-            await ServiceContainerAutor.autor.edit.run(
+            await AutorServicesAutor.autor.edit.run(
                 id,
                 name,
                 bio,
@@ -101,7 +101,7 @@ export class ExpressAutorController {
             const idToDelete = req.params.id;
             
             // Llama al caso de uso para eliminar el autor
-            await ServiceContainerAutor.autor.delete.run(idToDelete);
+            await AutorServicesAutor.autor.delete.run(idToDelete);
             
             // Devuelve 200 OK y un mensaje JSON
             return res.status(200).json({ 

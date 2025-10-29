@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ServiceContainer } from "../../Shared/infrastructure/ServiceContainer";
+import { EstudianteServices  } from "../../shared/infrastructure/ServiceContainerEstudiante";
 import { estudianteNotFoundError } from "../domain/estudianteNotFoundError"; 
 
 export class ExpressEstudianteController {
@@ -7,8 +7,8 @@ export class ExpressEstudianteController {
     // GET /estudiantes
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const estudiantes = await ServiceContainer.estudiante.getAll.run();
-            return res.status(200).json(estudiantes.map((est) => est.mapToPrimitives()));
+            const estudiantes = await EstudianteServices.estudiante.getAll.run();
+            return res.status(200).json(estudiantes.map((estudiante) => estudiante.mapToPrimitives()));
         } catch (error) {
             next(error);
         }
@@ -17,7 +17,7 @@ export class ExpressEstudianteController {
     // GET /estudiantes/:id
     async getOneById(req: Request, res: Response, next: NextFunction) {
         try {
-            const estudiante = await ServiceContainer.estudiante.getOneById.run(req.params.id);
+            const estudiante = await EstudianteServices.estudiante.getOneById.run(req.params.id);
             return res.status(200).json(estudiante.mapToPrimitives());
         } catch (error) {
             if (error instanceof estudianteNotFoundError) {
@@ -34,17 +34,17 @@ export class ExpressEstudianteController {
                 id: string;
                 name: string;
                 email: string;
-                carrera: string;
                 createdAt: string;
+                carrera: string;
                 updateAt: string;
             };
 
-            await ServiceContainer.estudiante.create.run(
+            await EstudianteServices.estudiante.create.run(
                 id,
                 name,
                 email,
-                carrera,
                 new Date(createdAt),
+                carrera,
                 new Date(updateAt)
             );
 
@@ -62,17 +62,17 @@ export class ExpressEstudianteController {
                 id: string;
                 name: string;
                 email: string;
-                carrera: string;
                 createdAt: string;
+                carrera: string;
                 updateAt: string;
             };
             
-            await ServiceContainer.estudiante.edit.run(
+            await EstudianteServices.estudiante.edit.run(
                 id,
                 name,
                 email,
-                carrera,
                 new Date(createdAt),
+                carrera,
                 new Date(updateAt)
             );
 
@@ -91,7 +91,7 @@ export class ExpressEstudianteController {
         try {
             const idToDelete = req.params.id;
             
-            await ServiceContainer.estudiante.delete.run(idToDelete);
+            await EstudianteServices.estudiante.delete.run(idToDelete);
             
             return res.status(200).json({ 
                 message: `Estudiante con ID ${idToDelete} eliminado exitosamente.` 

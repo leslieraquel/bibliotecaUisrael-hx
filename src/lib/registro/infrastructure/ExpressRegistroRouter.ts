@@ -4,10 +4,13 @@ import { ExpressRegistroController } from "./ExpressRegistroController";
 const controller = new ExpressRegistroController();
 const ExpressRegistroRouter = Router();
 
-ExpressRegistroRouter.post("/registros/", controller.create);
-ExpressRegistroRouter.put("/registros/", controller.edit);
-ExpressRegistroRouter.delete("/registros/", controller.delete);
-ExpressRegistroRouter.delete("/registros/:id", controller.delete); 
-ExpressRegistroRouter.get("/registros/:id/", controller.getOneById);
+ExpressRegistroRouter.post("/save/", controller.create);
+ExpressRegistroRouter.get("/list/", controller.getAll);
+ExpressRegistroRouter.put("/update/", controller.edit);
+ExpressRegistroRouter.delete("/delete/:id", controller.delete); 
+ExpressRegistroRouter.get("/findById/:id/", controller.getOneById);
+
 
 export { ExpressRegistroRouter };
+
+

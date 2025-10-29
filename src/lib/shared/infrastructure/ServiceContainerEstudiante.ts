@@ -7,10 +7,14 @@ import { EstudianteDelete } from "../../estudiante/application/estudianteDelete/
 
 const EstudianteRepository = new InMemoryEstudianteRepository();
 export const EstudianteServices = {
+
+    estudiante:{
+        getAll: new estudianteGetAll(EstudianteRepository),
+        getOneById: new EstudianteGetOneById(EstudianteRepository),
+        create: new estudianteCreate(EstudianteRepository),
+        edit: new estudianteEdit(EstudianteRepository),
+        delete: new EstudianteDelete(EstudianteRepository),
+
+    }
     
-    getAll: new estudianteGetAll(EstudianteRepository),
-    getOneById: new EstudianteGetOneById(EstudianteRepository),
-    create: new estudianteCreate(EstudianteRepository),
-    edit: new estudianteEdit(EstudianteRepository),
-    delete: new EstudianteDelete(EstudianteRepository),
 };

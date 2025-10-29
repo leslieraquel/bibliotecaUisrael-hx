@@ -1,5 +1,5 @@
 
-export class resgitroEstado{
+export class registroEstado{
     value: string;
 
     constructor(value: string){

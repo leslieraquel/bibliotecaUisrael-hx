@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ServiceContainer } from "../../Shared/infrastructure/ServiceContainer"; // Asume que este es el contenedor central
+import { RegistroServices } from "../../shared/infrastructure/ServiceContainerRegistro"; // Asume que este es el contenedor central
 import { registroNotFoundError } from "../domain/registroNotFoundError"; 
 
 export class ExpressRegistroController {
@@ -8,7 +8,7 @@ export class ExpressRegistroController {
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             // Llama al caso de uso para obtener todos los registros
-            const registros = await ServiceContainer.registro.getAll.run();
+            const registros = await RegistroServices.registro.getAll.run();
             // Convierte cada entidad a primitivos antes de la respuesta JSON
             return res.status(200).json(registros.map((registro) => registro.mapToPrimitives()));
         } catch (error) {
@@ -20,7 +20,7 @@ export class ExpressRegistroController {
     async getOneById(req: Request, res: Response, next: NextFunction) {
         try {
             // Llama al caso de uso para obtener un registro por ID
-            const registro = await ServiceContainer.registro.getOneById.run(req.params.id);
+            const registro = await RegistroServices.registro.getOneById.run(req.params.id);
             
             // Devuelve el registro encontrado (convertido a primitivos)
             return res.status(200).json(registro.mapToPrimitives());
@@ -47,7 +47,7 @@ export class ExpressRegistroController {
             };
 
             // Llama al caso de uso para crear el registro
-            await ServiceContainer.registro.create.run(
+            await RegistroServices.registro.create.run(
                 id,
                 new Date(prestamoDate),
                 new Date(devolucionDate),
@@ -76,7 +76,7 @@ export class ExpressRegistroController {
             };
 
             // Llama al caso de uso para editar el registro (ej. al cambiar el estado a 'DEVUELTO')
-            await ServiceContainer.registro.edit.run(
+            await RegistroServices.registro.edit.run(
                 id,
                 new Date(prestamoDate),
                 new Date(devolucionDate),
@@ -102,7 +102,7 @@ export class ExpressRegistroController {
             const idToDelete = req.params.id;
             
             // Llama al caso de uso para eliminar el registro
-            await ServiceContainer.registro.delete.run(idToDelete);
+            await RegistroServices.registro.delete.run(idToDelete);
             
             // Devuelve 200 OK y un mensaje JSON
             return res.status(200).json({ 
