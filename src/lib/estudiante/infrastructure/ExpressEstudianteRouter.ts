@@ -6,7 +6,7 @@ const ExpressEstudianteRouter = Router();
 ExpressEstudianteRouter.post("/save/", controller.create);
 ExpressEstudianteRouter.get("/list", controller.getAll);
 ExpressEstudianteRouter.put("/update/", controller.edit);
-ExpressEstudianteRouter.delete("/estudiantes/:id", controller.delete); 
+ExpressEstudianteRouter.delete("/delete/:id", controller.delete); 
 ExpressEstudianteRouter.get("/findById/:id/", controller.getOneById);
 
 export { ExpressEstudianteRouter };

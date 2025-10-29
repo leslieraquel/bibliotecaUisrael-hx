@@ -9,7 +9,9 @@ import { libroYear } from "../../domain/libroYear";
 import { LibroRepository } from "../../domain/libroRepository"; 
 
 export class LibroCreate {
-    constructor(private repository: LibroRepository) {}
+    constructor(
+        private repository: LibroRepository
+        ) {}
     async run(
         id: string,
         title: string,
