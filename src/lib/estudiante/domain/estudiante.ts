@@ -21,7 +21,7 @@ export class estudiante{
         this.email = email;
         this.createdAt = createdAt;
         this.carrera = carrera;
-        this.updateAt=updateAt;
+        this.updateAt = updateAt;
     }
     //Ejemplo: Servicio de Dominio, no depende de application o infrastructure
     public nameAndEmail(){

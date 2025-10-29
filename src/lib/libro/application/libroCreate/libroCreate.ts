@@ -7,6 +7,8 @@ import { libroTitle } from "../../domain/libroTitle";
 import { libroUpdateAt } from "../../domain/libroUpdateAt";
 import { libroYear } from "../../domain/libroYear";
 import { LibroRepository } from "../../domain/libroRepository"; 
+import { libroIdAutor } from "../../domain/libroIdAutor"; 
+
 
 export class LibroCreate {
     constructor(private repository: LibroRepository) {}
@@ -16,6 +18,7 @@ export class LibroCreate {
         isbn: string,
         editorial: string,
         year: string, 
+        idutor:string,
         createdAt: Date,
         updateAt: Date
     ): Promise<void> {
@@ -26,6 +29,7 @@ export class LibroCreate {
             new libroIsbn(isbn),
             new libroEditorial(editorial),
             new libroYear(year), 
+            new libroIdAutor(idutor), 
             new libroCreatedAt(createdAt),
             new libroUpdateAt(updateAt)
         );

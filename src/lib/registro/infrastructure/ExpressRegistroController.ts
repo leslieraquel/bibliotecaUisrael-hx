@@ -38,12 +38,15 @@ export class ExpressRegistroController {
     async create(req: Request, res: Response, next: NextFunction) {
         try {
             // Campos específicos del registro
-            const { id, prestamoDate, devolucionDate, estado, createdAt } = req.body as {
+            const { id, prestamoDate, devolucionDate, estado,idLibro,idEstudiante, createdAt } = req.body as {
                 id: string;
                 prestamoDate: string;
                 devolucionDate: string;
                 estado: string; // Ej: 'ACTIVO'
-                createdAt: string;
+                idLibro:string;
+                idEstudiante:string;
+                createdAt:Date;
+                updateAte:Date;
             };
 
             // Llama al caso de uso para crear el registro
@@ -52,7 +55,10 @@ export class ExpressRegistroController {
                 new Date(prestamoDate),
                 new Date(devolucionDate),
                 estado,
-                new Date(createdAt)
+                idLibro,
+                idEstudiante,
+                new Date(createdAt),
+                new Date(createdAt),
             );
 
             // Devuelve 201 Created y el objeto creado
@@ -67,12 +73,15 @@ export class ExpressRegistroController {
     // PUT/PATCH /registros
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
-            const { id, prestamoDate, devolucionDate, estado, createdAt } = req.body as {
+            const { id, prestamoDate, devolucionDate, estado,idLibro,idEstudiante, createdAt,updateAt } = req.body as {
                 id: string;
                 prestamoDate: string;
                 devolucionDate: string;
                 estado: string;
+                idLibro:string;
+                idEstudiante:string;
                 createdAt: string;
+                updateAt:string;
             };
 
             // Llama al caso de uso para editar el registro (ej. al cambiar el estado a 'DEVUELTO')
@@ -81,11 +90,15 @@ export class ExpressRegistroController {
                 new Date(prestamoDate),
                 new Date(devolucionDate),
                 estado,
-                new Date(createdAt)
+                idLibro,
+                idEstudiante,
+                new Date(createdAt),
+                new Date(updateAt)
+
             );
 
             // Devuelve 200 OK y el objeto actualizado
-            const updatedRegistro = { id, prestamoDate, devolucionDate, estado, createdAt }; 
+            const updatedRegistro = { id, prestamoDate, devolucionDate, estado,idLibro,idEstudiante, createdAt }; 
             return res.status(200).json(updatedRegistro); 
             
         } catch (error) {
