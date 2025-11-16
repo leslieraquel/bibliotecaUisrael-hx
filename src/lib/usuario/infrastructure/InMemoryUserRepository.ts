@@ -7,6 +7,7 @@ import { UserCreatedAt } from "../domain/UserCreatedAt";
 import { UserUpdateAt } from "../domain/UserUpdateAt";
 import { UserRepository } from "../domain/UserRepository";
 import { UserModel } from "./modelUser"; 
+import { UserType } from "../domain/UserType";
 
 export class InMemoryUserRepository implements UserRepository {
   async create(us: User): Promise<void> {
@@ -22,12 +23,12 @@ export class InMemoryUserRepository implements UserRepository {
         const docs = await UserModel.find().lean();
         return docs.map(u => 
             new User(
-            new UserCi(u.ci),
-            new UserName(u.name),
-            new UserEmail(u.email),
-            new UserPassword(u.password),
-            new UserCreatedAt(u.createdAt),
-            new UserUpdateAt(u.updateAt)
+                new UserCi(u.ci),
+                new UserName(u.name),
+                new UserEmail(u.email),
+                new UserPassword(u.password),
+                new UserCreatedAt(u.createdAt),
+                new UserUpdateAt(u.updateAt)
             )
         );
     }
@@ -38,6 +39,7 @@ export class InMemoryUserRepository implements UserRepository {
 
         return new User(
             new UserCi(u.ci),
+            new UserType(u.type),
             new UserName(u.name),
             new UserEmail(u.email),
             new UserPassword(u.password),
