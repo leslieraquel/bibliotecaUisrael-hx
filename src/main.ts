@@ -4,6 +4,8 @@ import { ExpressLibroRouter } from './lib/libro/infrastructure/ExpressLibroRoute
 import {  ExpressAutorRouter } from './lib/autor/infrastructure/ExpressAutorRouter';
 import {ExpressEstudianteRouter }from './lib/estudiante/infrastructure/ExpressEstudianteRouter';
 import { ExpressRegistroRouter} from './lib/registro/infrastructure/ExpressRegistroRouter';
+import { ExpressAuthRouter } from './lib/usuario/infrastructure/ExpressUserRouter';
+import { ExpressUserRouter } from './lib/usuario/infrastructure/ExpressUserRouter';
 
 
 const app = express();
@@ -14,6 +16,8 @@ app.use("/api/libro", ExpressLibroRouter);
 app.use("/api/autor", ExpressAutorRouter);
 app.use("/api/estudiante", ExpressEstudianteRouter);
 app.use("/api/registro", ExpressRegistroRouter);
+app.use("/api/users", ExpressUserRouter);
+app.use("/api/auth", ExpressAuthRouter);
 
 
 app.get('/', (req, res) => {
