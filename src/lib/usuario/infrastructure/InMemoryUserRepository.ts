@@ -22,12 +22,12 @@ export class InMemoryUserRepository implements UserRepository {
         const docs = await UserModel.find().lean();
         return docs.map(u => 
             new User(
-                new UserCi(u.ci),
-                new UserName(u.name),
-                new UserEmail(u.email),
-                new UserPassword(u.password),
-                new UserCreatedAt(u.createdAt),
-                new UserUpdateAt(u.updateAt)
+            new UserCi(u.ci),
+            new UserName(u.name),
+            new UserEmail(u.email),
+            new UserPassword(u.password),
+            new UserCreatedAt(u.createdAt),
+            new UserUpdateAt(u.updateAt)
             )
         );
     }
@@ -42,7 +42,7 @@ export class InMemoryUserRepository implements UserRepository {
             new UserEmail(u.email),
             new UserPassword(u.password),
             new UserCreatedAt(u.createdAt),
-           new UserUpdateAt(u.updateAt)
+            new UserUpdateAt(u.updateAt)
         );
     }
 
