@@ -22,8 +22,9 @@ export class InMemoryUserRepository implements UserRepository {
     async getAll(): Promise<User[]> {
         const docs = await UserModel.find().lean();
         return docs.map(u => 
-            new User(
+               new User(
                 new UserCi(u.ci),
+                new UserType(u.type),
                 new UserName(u.name),
                 new UserEmail(u.email),
                 new UserPassword(u.password),
