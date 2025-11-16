@@ -31,8 +31,9 @@ export class ExpressUserController {
     // POST /users
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { ci, name, email, password, createdAt, updatedAt } = req.body as {
+            const { ci,type, name, email, password, createdAt, updatedAt } = req.body as {
                 ci: string;
+                type:string;
                 name: string;
                 email: string;
                 password: string;
@@ -42,6 +43,7 @@ export class ExpressUserController {
 
             await UserContainer.user.create.run(
                 ci,
+                type,
                 name,
                 email,
                 password,
@@ -59,8 +61,9 @@ export class ExpressUserController {
     // PUT/PATCH /users/:ci
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
-            const { ci, name, email, password, createdAt, updatedAt } = req.body as {
+            const { ci, type,name, email, password, createdAt, updatedAt } = req.body as {
                 ci: string;
+                type :string;
                 name: string;
                 email: string;
                 password: string;
@@ -70,6 +73,7 @@ export class ExpressUserController {
             
             await UserContainer.user.edit.run(
                 ci,
+                type,
                 name,
                 email,
                 password,
