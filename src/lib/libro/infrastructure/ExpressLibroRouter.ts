@@ -10,3 +10,6 @@ ExpressLibroRouter.delete("/delete/:id", controller.delete);
 ExpressLibroRouter.get("/findById/:id/", controller.getOneById);
 
 export { ExpressLibroRouter };
+import { LibroModel } from './modelLibro'; 
+
+const router = Router();
