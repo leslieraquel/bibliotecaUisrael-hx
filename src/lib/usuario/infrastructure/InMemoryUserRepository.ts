@@ -14,7 +14,7 @@ export class InMemoryUserRepository implements UserRepository {
     const primitive = us.mapToPrimitives();
     await UserModel.create({
       ...primitive,
-      updateAt: us.updateAt.value,
+      updateAt: us.updateAt.value
     });
   }
 

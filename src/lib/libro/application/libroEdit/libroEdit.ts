@@ -7,6 +7,10 @@ import { libroTitle } from "../../domain/libroTitle";
 import { libroUpdateAt } from "../../domain/libroUpdateAt";
 import { libroYear } from "../../domain/libroYear";
 import { libroIdAutor } from "../../domain/libroIdAutor";
+import { libroSinopsis } from "../../domain/libroSinopsis";
+import { libroArchivo } from "../../domain/libroArchivo";
+import { libroEstado } from "../../domain/libroEstado";
+
 
 import { LibroRepository } from "../../domain/libroRepository";
 
@@ -20,6 +24,9 @@ export class LibroEdit {
         editorial: string,
         year: string, 
         idAutor: string, 
+        sinopsis:string,
+        archivo:string,
+        estado:string,
         createdAt: Date,
         updateAt: Date
     ): Promise<void> {
@@ -30,6 +37,9 @@ export class LibroEdit {
             new libroEditorial(editorial),
             new libroYear(year),
             new libroIdAutor(idAutor),
+            new libroSinopsis(sinopsis),
+            new libroArchivo(archivo),
+            new libroEstado(estado),
             new libroCreatedAt(createdAt),
             new libroUpdateAt(updateAt)
         );

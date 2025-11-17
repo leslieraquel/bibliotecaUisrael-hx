@@ -10,6 +10,7 @@ export class ExpressAuthController {
                 ci: string;
                 password: string;
             };
+            console.log(req.body);
 
             // Usar UserLogin para crear la sesión
             const session = await UserContainer.user.login.run(ci, password); // ← Cambiar UserContainer por UserServices

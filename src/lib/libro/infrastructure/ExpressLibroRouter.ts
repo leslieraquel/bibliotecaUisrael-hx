@@ -3,11 +3,11 @@ import { ExpressLibroController } from "./ExpressLibroController";
 
 const controller = new ExpressLibroController();
 const ExpressLibroRouter = Router();
-ExpressLibroRouter.post("/save/", controller.create);
+ExpressLibroRouter.post("/save", controller.create);
 ExpressLibroRouter.get("/list", controller.getAll);
-ExpressLibroRouter.put("/update/", controller.edit);
+ExpressLibroRouter.put("/update", controller.edit);
 ExpressLibroRouter.delete("/delete/:id", controller.delete); 
-ExpressLibroRouter.get("/findById/:id/", controller.getOneById);
+ExpressLibroRouter.get("/findById/:id", controller.getOneById);
 
 export { ExpressLibroRouter };
 import { LibroModel } from './modelLibro'; 

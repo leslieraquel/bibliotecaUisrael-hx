@@ -3,6 +3,7 @@ export class UserSession {
         public readonly token: string,
         public readonly user: {
             ci: string;
+            type:string;
             name: string;
             email: string;
         },

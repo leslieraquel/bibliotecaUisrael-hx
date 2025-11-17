@@ -8,6 +8,10 @@ import { libroCreatedAt } from "../domain/libroCreatedAt";
 import { libroUpdateAt } from "../domain/libroUpdateAt";
 import { libroYear } from "../domain/libroYear";
 import { libroIdAutor } from "../domain/libroIdAutor";
+
+import { libroSinopsis } from "../domain/libroSinopsis";
+import { libroArchivo } from "../domain/libroArchivo";
+import { libroEstado } from "../domain/libroEstado";
 import { LibroRepository } from "../domain/libroRepository";
 import { LibroModel } from "./modelLibro";
 
@@ -33,8 +37,12 @@ export class InMemoryLibroRepository implements LibroRepository {
           new libroEditorial(d.editorial),
           new libroYear(d.year),
           new libroIdAutor(d.idAutor),
+          new libroSinopsis(d.sinopsis),
+          new libroArchivo(d.archivo),
+          new libroEstado(d.estado),
           new libroCreatedAt(d.createdAt),
-          new libroUpdateAt(d.updateAt)
+          new libroUpdateAt(d.updateAt),
+          
         )   
     );
   }
@@ -50,6 +58,9 @@ export class InMemoryLibroRepository implements LibroRepository {
           new libroEditorial(d.editorial),
           new libroYear(d.year),
           new libroIdAutor(d.idAutor),
+          new libroSinopsis(d.sinopsis),
+          new libroArchivo(d.archivo),
+          new libroEstado(d.estado),
           new libroCreatedAt(d.createdAt),
           new libroUpdateAt(d.updateAt)
     );
@@ -65,6 +76,9 @@ export class InMemoryLibroRepository implements LibroRepository {
           editorial: lib.editorial.value,
           year: lib.year.value,
           idAutor:lib.idAutor.value,
+          sinopsis:lib.sinopsis.value,
+          archivo:lib.archivo.value,
+          estado:lib.estado.value,
           createdAt: lib.updateAt.value,
           updateAt: lib.updateAt.value,
 

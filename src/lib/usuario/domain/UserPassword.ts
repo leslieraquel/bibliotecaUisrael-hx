@@ -17,14 +17,15 @@ export class UserPassword {
 
     // Método para crear contraseñas hasheadas (usar en UserCreate)
     static create(plainPassword: string): UserPassword {
-        const saltRounds = 10;
-        const hashedPassword = bcrypt.hashSync(plainPassword, saltRounds);
-        return new UserPassword(hashedPassword);
+        // const saltRounds = 10;
+        // const hashedPassword = bcrypt.hashSync(plainPassword, saltRounds);
+        return new UserPassword(plainPassword);
     }
 
     // Método para verificar contraseñas (usar en UserLogin)
     match(plainPassword: string): boolean {
-        return bcrypt.compareSync(plainPassword, this.value);
+        // return bcrypt.compareSync(plainPassword, this.value);
+        return plainPassword === this.value;
     }
 
     // Getter para obtener el valor

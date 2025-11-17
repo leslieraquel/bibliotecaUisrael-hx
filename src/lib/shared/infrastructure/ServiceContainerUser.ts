@@ -1,10 +1,10 @@
-import { UserGetAll } from "src/lib/usuario/application/UserGetAll/UserGetAll";
-import { UserGetOneById } from "src/lib/usuario/application/UserGetOneById/UserGetOneById";
-import { UserCreate } from "src/lib/usuario/application/UserCreate/UserCreate";
-import { UserEdit } from "src/lib/usuario/application/UserEdit/UserEdit";
-import { UserDelete } from "src/lib/usuario/application/UserDelete/UserDelete";
-import { InMemoryUserRepository } from "src/lib/usuario/infrastructure/InMemoryUserRepository";
-import { UserLogin } from "src/lib/usuario/application/UserLogin/UserLogin";
+import { UserGetAll } from "../../usuario/application/UserGetAll/UserGetAll";
+import { UserGetOneById } from "../../usuario/application/UserGetOneById/UserGetOneById";
+import { UserCreate } from "../../usuario/application/UserCreate/UserCreate";
+import { UserEdit } from "../../usuario/application/UserEdit/UserEdit";
+import { UserDelete } from "../../usuario/application/UserDelete/UserDelete";
+import { InMemoryUserRepository } from "../../usuario/infrastructure/InMemoryUserRepository";
+import { UserLogin } from "../../usuario/application/UserLogin/UserLogin";
 const UserRepository = new InMemoryUserRepository();
 
 export const UserContainer = {

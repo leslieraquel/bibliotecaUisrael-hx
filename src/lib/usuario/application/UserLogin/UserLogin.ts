@@ -9,12 +9,13 @@ export class UserLogin {
     
     async run(ci: string, password: string): Promise<UserSession> {
         const userCi = new UserCi(ci);
+        console.log(password);
         const user = await this.repository.getOneById(userCi);
         
         if (!user) {
             throw new Error('Usuario no encontrado');
         }
-        
+
         if (!user.password.match(password)) {
             throw new Error('Contraseña incorrecta');
         }
@@ -22,6 +23,7 @@ export class UserLogin {
         // Generar token con los datos del usuario
         const token = UserToken.generate({
             ci: user.ci.value,
+            tipo: user.type.value,
             name: user.name.value,
             email: user.email.value
         });
@@ -31,6 +33,7 @@ export class UserLogin {
             token.value,
             {
                 ci: user.ci.value,
+                type: user.type.value,
                 name: user.name.value,
                 email: user.email.value
             },

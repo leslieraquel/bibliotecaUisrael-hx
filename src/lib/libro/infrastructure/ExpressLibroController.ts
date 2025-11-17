@@ -30,13 +30,16 @@ export class ExpressLibroController {
     // POST /libros
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { id, title, isbn, editorial, year,idAutor, createdAt, updateAt } = req.body as {
+            const { id, title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt } = req.body as {
                 id: string;
                 title: string;
                 isbn: string;
                 editorial: string;
                 year: string;
                 idAutor:string;
+                sinopsis:string;
+                archivo:string;
+                estado:string;
                 createdAt: string;
                 updateAt: string;
             };
@@ -48,11 +51,14 @@ export class ExpressLibroController {
                 editorial,
                 year,
                 idAutor,
+                sinopsis,
+                archivo,
+                estado,
                 new Date(createdAt),
                 new Date(updateAt)
             );
 
-            return res.status(201).json({ id, title, isbn, editorial, year,idAutor, createdAt, updateAt });
+            return res.status(201).json({ id, title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt });
 
         } catch (error) {
             next(error);
@@ -62,13 +68,16 @@ export class ExpressLibroController {
     // PUT/PATCH /libros/:id
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
-            const { id, title, isbn, editorial, year,idAutor, createdAt, updateAt } = req.body as {
+            const { id, title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt } = req.body as {
                 id: string;
                 title: string;
                 isbn: string;
                 editorial: string;
                 year: string;
                 idAutor:string;
+                sinopsis:string;
+                archivo:string;
+                estado:string;
                 createdAt: string;
                 updateAt: string;
             };
@@ -80,11 +89,14 @@ export class ExpressLibroController {
                 editorial,
                 year,
                 idAutor,
+                sinopsis,
+                archivo,
+                estado,
                 new Date(createdAt),
                 new Date(updateAt)
             );
 
-            return res.status(200).json({ id, title, isbn, editorial, year,idAutor, createdAt, updateAt });
+            return res.status(200).json({ id, title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt });
 
         } catch (error) {
             if (error instanceof libroNotFoundError) {

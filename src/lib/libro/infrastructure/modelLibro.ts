@@ -7,6 +7,9 @@ export interface ILibroDocument extends Document {
   editorial: string;
   year: string;
   idAutor:string;
+  sinopsis: string;
+  archivo: string;
+  estado: string;
   createdAt: Date;
   updateAt: Date;
 
@@ -19,6 +22,9 @@ const LibroSchema = new Schema<ILibroDocument>({
   editorial: { type: String, required: true },
   year: { type: String, required: true },
   idAutor: { type: String, required: true },
+  sinopsis: { type: String, required: true },
+  archivo: { type: String, required: true },
+  estado: { type: String, required: true },
   createdAt: { type: Date, required: true },
   updateAt: { type: Date, required: true },
 });

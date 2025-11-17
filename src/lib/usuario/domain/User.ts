@@ -36,7 +36,7 @@ export class User {
             type:this.type.value,
             name: this.name.value,
             email :this.email.value,
-            password: this.password,
+            password: this.password.getValue(),
             createdAt: this.createdAt.value,
             updateAt: this.updateAt.value,
         };
