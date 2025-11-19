@@ -31,7 +31,6 @@ export class LibroEdit {
         updateAt: Date
     ): Promise<void> {
         const libroEntity = new libro(
-            new libroId(id),
             new libroTitle(title),
             new libroIsbn(isbn),
             new libroEditorial(editorial),

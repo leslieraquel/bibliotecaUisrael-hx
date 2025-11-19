@@ -19,7 +19,6 @@ export class LibroCreate {
         private repository: LibroRepository
         ) {}
     async run(
-        id: string,
         title: string,
         isbn: string,
         editorial: string,
@@ -33,7 +32,6 @@ export class LibroCreate {
     ): Promise<void> {
 
         const libroEntity = new libro(
-            new libroId(id),
             new libroTitle(title),
             new libroIsbn(isbn),
             new libroEditorial(editorial),

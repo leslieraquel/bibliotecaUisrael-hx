@@ -7,12 +7,15 @@ import { libroIdAutor } from "./libroIdAutor";
 import { libroSinopsis } from "./libroSinopsis";
 import { libroArchivo } from "./libroArchivo";
 import { libroEstado } from "./libroEstado";
+import { ObjectId } from "mongodb";
 
 import { libroCreatedAt } from "./libroCreatedAt";
 import { libroUpdateAt } from "./libroUpdateAt";
 
+
+
 export class libro {
-    id: libroId;
+    id?: libroId;
     title: libroTitle;
     isbn: libroIsbn;
     editorial: libroEditorial;
@@ -25,7 +28,6 @@ export class libro {
     updateAt: libroUpdateAt;
 
     constructor(
-        id: libroId,
         title: libroTitle,
         isbn: libroIsbn,
         editorial: libroEditorial,
@@ -35,7 +37,8 @@ export class libro {
         archivo:libroArchivo,
         estado:libroEstado,
         createdAt: libroCreatedAt,
-        updateAt: libroUpdateAt
+        updateAt: libroUpdateAt,
+        id?: libroId
     ) {
         this.id = id;
         this.title = title;
@@ -58,7 +61,7 @@ export class libro {
     // Método para convertir la Entidad a una estructura de datos simple (primitivos).
     public mapToPrimitives() {
         return {
-            id: this.id.value,
+            id: this.id?.value,
             title: this.title.value,
             isbn: this.isbn.value,
             editorial: this.editorial.value,

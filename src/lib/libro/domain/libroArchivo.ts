@@ -1,11 +1,5 @@
-export class libroArchivo{
-    value: string;
-
-    constructor(value: string){
-        this.value = value;
-        this.ensureIsValid();
-    }
-    private ensureIsValid(){
-  
+export class libroArchivo {
+    constructor(public value: string | null) {
+        // valida si quieres
     }
 }

@@ -1,7 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { ObjectId } from "mongodb";
 
 export interface ILibroDocument extends Document {
-  id: string;
+  _id: ObjectId;
   title: string;
   isbn: string;
   editorial: string;
@@ -16,7 +17,7 @@ export interface ILibroDocument extends Document {
 }
 
 const LibroSchema = new Schema<ILibroDocument>({
-  id: { type: String, required: true, unique: true },
+  // id: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   isbn: { type: String, required: true },
   editorial: { type: String, required: true },

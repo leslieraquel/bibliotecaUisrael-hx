@@ -8,7 +8,7 @@ import { libroCreatedAt } from "../domain/libroCreatedAt";
 import { libroUpdateAt } from "../domain/libroUpdateAt";
 import { libroYear } from "../domain/libroYear";
 import { libroIdAutor } from "../domain/libroIdAutor";
-
+import { Types } from "mongoose";
 import { libroSinopsis } from "../domain/libroSinopsis";
 import { libroArchivo } from "../domain/libroArchivo";
 import { libroEstado } from "../domain/libroEstado";
@@ -18,6 +18,24 @@ import { LibroModel } from "./modelLibro";
 
 
 export class InMemoryLibroRepository implements LibroRepository {
+  // constructor(private collection: Collection) {}
+
+   private toDomain(d: any): libro {
+        return new libro(
+          new libroTitle(d.title),
+          new libroIsbn(d.isbn),
+          new libroEditorial(d.editorial),
+          new libroYear(d.year),
+          new libroIdAutor(d.idAutor),
+          new libroSinopsis(d.sinopsis),
+          new libroArchivo(d.archivo),
+          new libroEstado(d.estado),
+          new libroCreatedAt(d.createdAt),
+          new libroUpdateAt(d.updateAt),
+          new libroId(d._id.toString())
+        );
+    }
+
   async create(lib: libro): Promise<void> {
     const primitive = lib.mapToPrimitives();
     await LibroModel.create({
@@ -31,7 +49,6 @@ export class InMemoryLibroRepository implements LibroRepository {
     return docs.map(
       (d:any) =>
         new libro(
-          new libroId(d.id),
           new libroTitle(d.title),
           new libroIsbn(d.isbn),
           new libroEditorial(d.editorial),
@@ -42,33 +59,23 @@ export class InMemoryLibroRepository implements LibroRepository {
           new libroEstado(d.estado),
           new libroCreatedAt(d.createdAt),
           new libroUpdateAt(d.updateAt),
+          new libroId(d._id.toString())
           
         )   
     );
   }
 
-  async getOneById(id: libroId): Promise<libro | null> {
-    const d = await LibroModel.findOne({ id: id.value }).lean();
-    if (!d) return null;
 
-    return new libro(
-       new libroId(d.id),
-          new libroTitle(d.title),
-          new libroIsbn(d.isbn),
-          new libroEditorial(d.editorial),
-          new libroYear(d.year),
-          new libroIdAutor(d.idAutor),
-          new libroSinopsis(d.sinopsis),
-          new libroArchivo(d.archivo),
-          new libroEstado(d.estado),
-          new libroCreatedAt(d.createdAt),
-          new libroUpdateAt(d.updateAt)
-    );
+ async searchByMongoId(id: string): Promise<libro | null> {
+    const d = await LibroModel.findById(id).lean();
+    if (!d) return null;
+    return this.toDomain(d);
   }
 
   async edit(lib: libro): Promise<void> {
+    
     await LibroModel.updateOne(
-      { id: lib.id.value },
+      { _id: new Types.ObjectId(lib.id?.value) },
       {
         $set: {
           name: lib.title.value,
