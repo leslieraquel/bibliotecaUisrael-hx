@@ -2,18 +2,30 @@ import { NextFunction, Request, Response } from "express";
 import { LibroServices } from "../../shared/infrastructure/ServiceContainerLibro"; 
 import { libroNotFoundError } from "../domain/libroNotFoundError"; 
 import multer from "multer";
+import { Types } from "mongoose";
 
 export class ExpressLibroController {
     
     // GET /libros
-    async getAll(req: Request, res: Response, next: NextFunction) {
-        try {
-            const libros = await LibroServices.getAll.run(); 
-            return res.status(200).json(libros.map((libro) => libro.mapToPrimitives())); 
-        } catch (error) {
-            next(error);
-        }
+   async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+        const librosRaw = await LibroServices.getAll.run();
+
+        const response = librosRaw.map(libro => {
+            const data = libro.mapToPrimitives();
+
+            return {
+                ...data,
+                autor: libro.idAutor.valueObj ?? null
+            };
+        });
+
+        return res.json(response);
+    } catch (error) {
+        next(error);
     }
+}
+
 
     // GET /libros/:id
     // async getOneById(req: Request, res: Response, next: NextFunction) {
@@ -80,19 +92,15 @@ export class ExpressLibroController {
     // PUT/PATCH /libros/:id
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
-            const {  id,title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt } = req.body as {
-                id: string;
-                title: string;
-                isbn: string;
-                editorial: string;
-                year: string;
-                idAutor:string;
-                sinopsis:string;
-                archivo:string;
-                estado:string;
-                createdAt: string;
-                updateAt: string;
-            };
+            console.log("BODY:", req.body);
+            console.log("FILE:", req.file);
+            const {  id,title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt } = req.body;
+            // const archivoNuevo = req.file ? req.file.filename : null;
+            const objectId = new Types.ObjectId(id);
+            // Si no suben nuevo archivo → conserva el anterior
+            const archivoFinal = req.file ? req.file.filename : archivo;
+
+            console.log(archivoFinal);
             
             await LibroServices.edit.run(
                 id,
@@ -102,13 +110,13 @@ export class ExpressLibroController {
                 year,
                 idAutor,
                 sinopsis,
-                archivo,
+                archivoFinal,
                 estado,
                 new Date(createdAt),
                 new Date(updateAt)
             );
 
-            return res.status(200).json({ title, isbn, editorial, year,idAutor,sinopsis,archivo,estado, createdAt, updateAt });
+            return res.status(200).json({ title, isbn, editorial, year,idAutor,sinopsis,archivoFinal,estado, createdAt, updateAt });
 
         } catch (error) {
             if (error instanceof libroNotFoundError) {

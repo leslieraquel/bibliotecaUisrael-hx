@@ -22,6 +22,7 @@ export class InMemoryLibroRepository implements LibroRepository {
 
    private toDomain(d: any): libro {
         return new libro(
+          new libroId(d._id.toString()),
           new libroTitle(d.title),
           new libroIsbn(d.isbn),
           new libroEditorial(d.editorial),
@@ -32,7 +33,6 @@ export class InMemoryLibroRepository implements LibroRepository {
           new libroEstado(d.estado),
           new libroCreatedAt(d.createdAt),
           new libroUpdateAt(d.updateAt),
-          new libroId(d._id.toString())
         );
     }
 
@@ -45,21 +45,22 @@ export class InMemoryLibroRepository implements LibroRepository {
   }
 
   async getAll(): Promise<libro[]> {
-    const docs = await LibroModel.find().lean();
+    const docs = await LibroModel.find()
+            .populate("idAutor", "name");
     return docs.map(
       (d:any) =>
         new libro(
+          new libroId(d._id.toString()),
           new libroTitle(d.title),
           new libroIsbn(d.isbn),
           new libroEditorial(d.editorial),
           new libroYear(d.year),
-          new libroIdAutor(d.idAutor),
+          new libroIdAutor(d.idAutor?._id?.toString()),
           new libroSinopsis(d.sinopsis),
           new libroArchivo(d.archivo),
           new libroEstado(d.estado),
           new libroCreatedAt(d.createdAt),
           new libroUpdateAt(d.updateAt),
-          new libroId(d._id.toString())
           
         )   
     );
@@ -73,12 +74,16 @@ export class InMemoryLibroRepository implements LibroRepository {
   }
 
   async edit(lib: libro): Promise<void> {
+    console.log(lib.id?.value);
+    if (!lib.id) {
+        throw new Error("El libro no tiene id, no se puede actualizar");
+    }
     
     await LibroModel.updateOne(
       { _id: new Types.ObjectId(lib.id?.value) },
       {
         $set: {
-          name: lib.title.value,
+          title: lib.title.value,
           isbn: lib.isbn.value,
           editorial: lib.editorial.value,
           year: lib.year.value,
@@ -86,9 +91,8 @@ export class InMemoryLibroRepository implements LibroRepository {
           sinopsis:lib.sinopsis.value,
           archivo:lib.archivo.value,
           estado:lib.estado.value,
-          createdAt: lib.updateAt.value,
-          updateAt: lib.updateAt.value,
-
+          createdAt: lib.createdAt.value,
+          updateAt: lib.updateAt.value
         },
       }
     );

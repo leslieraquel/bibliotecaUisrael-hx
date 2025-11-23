@@ -1,11 +1,9 @@
-export class libroIdAutor{
+export class libroIdAutor {
     value: string;
+    valueObj?: any;
 
-    constructor(value: string){
+    constructor(value: string, valueObj?: any) {
         this.value = value;
-        this.ensureIsValid();
-    }
-    private ensureIsValid(){
-  
+        this.valueObj = valueObj;
     }
 }

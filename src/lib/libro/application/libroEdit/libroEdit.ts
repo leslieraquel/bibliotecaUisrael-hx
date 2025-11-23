@@ -31,6 +31,7 @@ export class LibroEdit {
         updateAt: Date
     ): Promise<void> {
         const libroEntity = new libro(
+            new libroId(id),
             new libroTitle(title),
             new libroIsbn(isbn),
             new libroEditorial(editorial),
@@ -40,7 +41,7 @@ export class LibroEdit {
             new libroArchivo(archivo),
             new libroEstado(estado),
             new libroCreatedAt(createdAt),
-            new libroUpdateAt(updateAt)
+            new libroUpdateAt(updateAt),
         );
 
         return this.repository.edit(libroEntity);

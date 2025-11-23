@@ -14,7 +14,7 @@ const upload = multer({ storage });
 const ExpressLibroRouter = Router();
 // ExpressLibroRouter.post("/save", controller.create);
 ExpressLibroRouter.get("/list", controller.getAll);
-ExpressLibroRouter.put("/update", controller.edit);
+ExpressLibroRouter.put("/update/:id", upload.single("archivo"),(req, res, next) => controller.edit(req, res, next));
 ExpressLibroRouter.delete("/delete/:id", controller.delete); 
 // ExpressLibroRouter.get("/findById/:id", controller.getOneById);
 ExpressLibroRouter.post(

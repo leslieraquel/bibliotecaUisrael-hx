@@ -7,7 +7,7 @@ export interface ILibroDocument extends Document {
   isbn: string;
   editorial: string;
   year: string;
-  idAutor:string;
+  idAutor: ObjectId | null;
   sinopsis: string;
   archivo: string;
   estado: string;
@@ -22,7 +22,7 @@ const LibroSchema = new Schema<ILibroDocument>({
   isbn: { type: String, required: true },
   editorial: { type: String, required: true },
   year: { type: String, required: true },
-  idAutor: { type: String, required: true },
+  idAutor: { type: mongoose.Schema.Types.ObjectId, ref: "autor", required: true },
   sinopsis: { type: String, required: true },
   archivo: { type: String, required: true },
   estado: { type: String, required: true },
