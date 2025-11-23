@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IAutorDocument extends Document {
 
-    id: string;
+      id: string;
       name: string;
       bio: string;
       createdAt: Date;
