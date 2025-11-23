@@ -54,9 +54,38 @@ export class ExpressUserController {
             return res.status(201).json({ ci, name, email, createdAt, updatedAt });
 
         } catch (error) {
-            next(error);
+        // ✅ Manejo completo de errores de validación
+        if (error instanceof Error) {
+            const message = error.message;
+            
+            // Errores de cédula
+            if (message.includes("cédula") && message.includes("registrada")) {
+                return res.status(409).json({ message });
+            }
+            if (message.includes("cédula") && message.includes("dígitos")) {
+                return res.status(400).json({ message });
+            }
+            
+            // Error de contraseña
+            if (message.includes("contraseña") && message.includes("caracteres")) {
+                return res.status(400).json({ message });
+            }
+            
+            // Error de email
+            if (message.includes("email") || message.includes("correo")) {
+                return res.status(400).json({ message });
+            }
+            
+            // Error de nombre
+            if (message.includes("nombre")) {
+                return res.status(400).json({ message });
+            }
         }
+        
+        // Para cualquier otro error
+        next(error);
     }
+}
 
     // PUT/PATCH /users/:ci
     async edit(req: Request, res: Response, next: NextFunction) {

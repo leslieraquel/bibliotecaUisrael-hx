@@ -14,8 +14,7 @@ const autorSchema = new Schema<IAutorDocument>({
   id: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   bio: { type: String, required: true },
-  createdAt: { type: Date, required: true },
-  updateAt: { type: Date, required: true },
+
 });
 
 export const autorModel = mongoose.model<IAutorDocument>(

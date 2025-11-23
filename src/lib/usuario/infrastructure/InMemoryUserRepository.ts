@@ -32,6 +32,7 @@ export class InMemoryUserRepository implements UserRepository {
                 new UserUpdateAt(u.updateAt)
             )
         );
+        
     }
 
     async getOneById(ci: UserCi): Promise<User | null> {

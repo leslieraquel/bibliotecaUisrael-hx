@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+
 export interface UserDocument extends Document {
   ci: string;
   type :string;
@@ -17,8 +18,6 @@ const UserSchema = new Schema<UserDocument>({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  createdAt: { type: Date, required: true },
-  updateAt: { type: Date, required: true },
 });
 
 export const UserModel = mongoose.model<UserDocument>(

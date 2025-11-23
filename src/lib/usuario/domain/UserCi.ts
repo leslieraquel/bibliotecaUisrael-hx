@@ -1,3 +1,4 @@
+import { CEDULA_10 } from '../../shared/infrastructure/regex';;
 export class UserCi{
     value: string;
 
@@ -7,7 +8,10 @@ export class UserCi{
     }
     private ensureIsValid(){
         if(this.value.length < 1){
-            throw new Error("La longitud debe ser mayor a 1 caracteres");
+            throw new Error("La cédula no puede estar vacía");
+        }
+         if (!CEDULA_10.test(this.value)) {
+            throw new Error("La cédula debe tener exactamente 10 dígitos numéricos");
         }
     }
 }
