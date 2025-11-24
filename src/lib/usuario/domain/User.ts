@@ -5,19 +5,23 @@ import { UserPassword } from "./UserPassword";
 import { UserCreatedAt } from "./UserCreatedAt";
 import { UserUpdateAt } from "./UserUpdateAt";
 import { UserType } from "./UserType";
+import { UserPerfil } from "./UserPerfil";
+
 
 export class User {
     ci:UserCi;
     type:UserType;
+    typeperfil:UserPerfil;
     name :UserName;
     email:UserEmail;
     password:UserPassword;
     createdAt: UserCreatedAt;
     updateAt:UserUpdateAt;
 
-    constructor(ci:UserCi, type:UserType, name:UserName, email:UserEmail, password: UserPassword,createdAt:UserCreatedAt, updateAt:UserUpdateAt){
+    constructor(ci:UserCi, type:UserType, typeperfil:UserPerfil, name:UserName, email:UserEmail, password: UserPassword,createdAt:UserCreatedAt, updateAt:UserUpdateAt){
         this.ci = ci;
         this.type =type;
+        this.typeperfil=typeperfil;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,6 +38,7 @@ export class User {
 
             ci:this.ci.value,
             type:this.type.value,
+            typeperfil:this.typeperfil.value,
             name: this.name.value,
             email :this.email.value,
             password: this.password.getValue(),

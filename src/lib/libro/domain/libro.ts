@@ -15,7 +15,7 @@ import { libroUpdateAt } from "./libroUpdateAt";
 
 
 export class libro {
-    id?: libroId;
+    id?: libroId | null
     title: libroTitle;
     isbn: libroIsbn;
     editorial: libroEditorial;
@@ -28,6 +28,7 @@ export class libro {
     updateAt: libroUpdateAt;
 
     constructor(
+        id: libroId | null,
         title: libroTitle,
         isbn: libroIsbn,
         editorial: libroEditorial,
@@ -38,7 +39,6 @@ export class libro {
         estado:libroEstado,
         createdAt: libroCreatedAt,
         updateAt: libroUpdateAt,
-        id?: libroId
     ) {
         this.id = id;
         this.title = title;
@@ -61,7 +61,7 @@ export class libro {
     // Método para convertir la Entidad a una estructura de datos simple (primitivos).
     public mapToPrimitives() {
         return {
-            id: this.id?.value,
+            id: this.id?.value ?? null,
             title: this.title.value,
             isbn: this.isbn.value,
             editorial: this.editorial.value,

@@ -20,7 +20,7 @@
 
 import { InMemoryAutorRepository } from "../../autor/infrastructure/InMemoryAutorRepository";
 import { AutorGetAll } from "../../autor/application/autorGetAll/autorGetAll";
-import { AutorGetOneById } from "../../autor/application/autorGetOneByld/autorGetOneByld";
+//import { AutorGetOneById } from "../../autor/application/autorGetOneByld/autorGetOneByld";
 import { AutorCreate } from "../../autor/application/autorCreate/autorCreate";
 import { AutorEdit } from "../../autor/application/autorEdit/autorEdit";
 import { AutorDelete } from "../../autor/application/autorDelete/autorDelete";
@@ -32,7 +32,7 @@ const AutorRepository = new InMemoryAutorRepository();
 export const AutorServicesAutor = {
 autor:{
  getAll: new AutorGetAll(AutorRepository),
- getOneById: new AutorGetOneById(AutorRepository),
+ //getOneById: new AutorGetOneById(AutorRepository),
  create: new AutorCreate(AutorRepository),
  edit: new AutorEdit(AutorRepository),
  delete: new AutorDelete(AutorRepository)

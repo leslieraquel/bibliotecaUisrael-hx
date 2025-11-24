@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
-
+import { ObjectId } from "mongodb";
 export interface IAutorDocument extends Document {
 
-      id: string;
+      _id: ObjectId;
       name: string;
       bio: string;
       createdAt: Date;
@@ -11,7 +11,7 @@ export interface IAutorDocument extends Document {
 }
 
 const autorSchema = new Schema<IAutorDocument>({
-  id: { type: String, required: true, unique: true },
+ // id: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   bio: { type: String, required: true },
 

@@ -32,6 +32,7 @@ export class LibroCreate {
     ): Promise<void> {
 
         const libroEntity = new libro(
+            null,
             new libroTitle(title),
             new libroIsbn(isbn),
             new libroEditorial(editorial),

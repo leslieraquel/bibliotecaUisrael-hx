@@ -8,6 +8,6 @@ ExpressAutorRouter.get("/list", controller.getAll);
 
 ExpressAutorRouter.put("/update", controller.edit);
 ExpressAutorRouter.delete("/delete/:id", controller.delete); 
-ExpressAutorRouter.get("/findById/:id", controller.getOneById);
+//ExpressAutorRouter.get("/findById/:id", controller.getOneById);
 
 export { ExpressAutorRouter };

@@ -31,9 +31,10 @@ export class ExpressUserController {
     // POST /users
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { ci,type, name, email, password, createdAt, updatedAt } = req.body as {
+            const { ci, type , typeperfil, name, email, password, createdAt, updatedAt } = req.body as {
                 ci: string;
                 type:string;
+                typeperfil:string;
                 name: string;
                 email: string;
                 password: string;
@@ -44,6 +45,7 @@ export class ExpressUserController {
             await UserContainer.user.create.run(
                 ci,
                 type,
+                typeperfil,
                 name,
                 email,
                 password,
@@ -51,7 +53,7 @@ export class ExpressUserController {
                 new Date(updatedAt)
             );
 
-            return res.status(201).json({ ci, name, email, createdAt, updatedAt });
+            return res.status(201).json({ ci,type,typeperfil, name, email, createdAt, updatedAt });
 
         } catch (error) {
         // ✅ Manejo completo de errores de validación
@@ -90,9 +92,10 @@ export class ExpressUserController {
     // PUT/PATCH /users/:ci
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
-            const { ci, type,name, email, password, createdAt, updatedAt } = req.body as {
+            const { ci, type,typeperfil, name, email, password, createdAt, updatedAt } = req.body as {
                 ci: string;
                 type :string;
+                typeperfil:string;
                 name: string;
                 email: string;
                 password: string;
@@ -103,6 +106,7 @@ export class ExpressUserController {
             await UserContainer.user.edit.run(
                 ci,
                 type,
+                typeperfil,
                 name,
                 email,
                 password,
@@ -110,7 +114,7 @@ export class ExpressUserController {
                 new Date(updatedAt)
             );
 
-            return res.status(200).json({ ci, name, email, createdAt, updatedAt });
+            return res.status(200).json({ ci,type,typeperfil, name, email, createdAt, updatedAt });//aquitypeytyperfil
 
         } catch (error) {
             if (error instanceof UserNotFoundError) {
@@ -135,4 +139,31 @@ export class ExpressUserController {
             next(error);
         }
     }
+
+ ////duplicar cedula validacion
+    async checkCi(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { ci } = req.params;
+        
+        // Verificar formato primero
+        if (!/^\d{10}$/.test(ci)) {
+            return res.status(400).json({ 
+                exists: false, 
+                error: 'Formato de cédula inválido' 
+            });
+        }
+
+        try {
+            const user = await UserContainer.user.getOneById.run(ci);
+            return res.status(200).json({ exists: true });
+        } catch (error) {
+            if (error instanceof UserNotFoundError) {
+                return res.status(200).json({ exists: false });
+            }
+            throw error;
+        }
+    } catch (error) {
+        next(error);
+    }
+}
 }

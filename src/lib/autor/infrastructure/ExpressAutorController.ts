@@ -17,28 +17,28 @@ export class ExpressAutorController {
     }
 
     // GET /autores/:id
-    async getOneById(req: Request, res: Response, next: NextFunction) {
-        try {
+  //  async getOneById(req: Request, res: Response, next: NextFunction) {
+      //  try {
             // Llama al caso de uso para obtener un autor por ID
-            const autor = await AutorServicesAutor.autor.getOneById.run(req.params.id);
+        //    const autor = await AutorServicesAutor.autor.getOneById.run(req.params.id);
             
             // Devuelve el autor encontrado (convertido a primitivos)
-            return res.status(200).json(autor.mapToPrimitives());
+          //  return res.status(200).json(autor.mapToPrimitives());
             
-        } catch (error) {
-            if (error instanceof autorNotFoundError) {
+        //} catch (error) {
+          //  if (error instanceof autorNotFoundError) {
                 // Maneja el error específico de "No encontrado"
-                return res.status(404).json({ message: error.message });
-            }
-            next(error); 
-        } 
-    }
+            //    return res.status(404).json({ message: error.message });
+           // }
+            //next(error); 
+       // } 
+   // }
 
     // POST /autores
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { id, name, bio, createdAt, updateAt } = req.body as {
-                id: string;
+            const { name, bio, createdAt, updateAt } = req.body as {
+                //id: string;
                 name: string;
                 bio: string;
                 createdAt: string;
@@ -47,7 +47,7 @@ export class ExpressAutorController {
 
             // Llama al caso de uso para crear el autor
             await AutorServicesAutor.autor.create.run(
-                id,
+                //id,
                 name,
                 bio,
                 new Date(createdAt),
@@ -55,7 +55,7 @@ export class ExpressAutorController {
             );
 
             // Devuelve 201 Created y el objeto creado
-            const createdAutor = { id, name, bio, createdAt, updateAt };
+            const createdAutor = {  name, bio, createdAt, updateAt };
             return res.status(201).json(createdAutor); 
 
         } catch (error) {

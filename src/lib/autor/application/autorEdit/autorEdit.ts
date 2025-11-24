@@ -16,7 +16,7 @@ export class AutorEdit {
         updateAt: Date 
     ): Promise<void> {
         const autorEntity = new autor(
-            new autorId(id),
+             new autorId(id),
             new autorNombre(name),
             new autorBio(bio),
             new autorCreatedAt(createdAt),
