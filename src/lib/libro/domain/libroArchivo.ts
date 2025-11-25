@@ -1,5 +1,7 @@
 export class libroArchivo {
     constructor(public value: string | null) {
-        // valida si quieres
+        if (value !== null && typeof value !== "string") {
+            throw new Error("El archivo debe ser una ruta válida");
+        }
     }
 }

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { LibroServices } from "../../shared/infrastructure/ServiceContainerLibro"; 
 import { libroNotFoundError } from "../domain/libroNotFoundError"; 
 import multer from "multer";
+import path from "path";
 import { Types } from "mongoose";
 
 export class ExpressLibroController {
@@ -28,17 +29,17 @@ export class ExpressLibroController {
 
 
     // GET /libros/:id
-    // async getOneById(req: Request, res: Response, next: NextFunction) {
-    //     try {
-    //         const libro = await LibroServices.getOneById.run(req.params.id); 
-    //         return res.status(200).json(libro.mapToPrimitives());
-    //     } catch (error) {
-    //         if (error instanceof libroNotFoundError) {
-    //             return res.status(404).json({ message: error.message });
-    //         }
-    //         next(error);
-    //     }
-    // }
+    async getOneById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const libro = await LibroServices.getOneById.run(req.params.id); 
+            return res.status(200).json(libro.mapToPrimitives());
+        } catch (error) {
+            if (error instanceof libroNotFoundError) {
+                return res.status(404).json({ message: error.message });
+            }
+            next(error);
+        }
+    }
     
 
     // POST /libros
@@ -141,4 +142,20 @@ export class ExpressLibroController {
             next(error);
         }
     }
+
+   async descargarPDF(req: Request, res: Response, next: NextFunction) {
+     try {
+    const id = req.params.id;
+    const relativePath = await LibroServices.downloadPDF.run(id);
+
+    const filePath = path.resolve(relativePath);
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=" + path.basename(filePath));
+
+    return res.sendFile(filePath);
+  } catch (error) {
+    next(error);
+  }
+}
 }

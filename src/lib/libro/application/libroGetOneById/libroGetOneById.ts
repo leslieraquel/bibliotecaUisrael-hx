@@ -17,10 +17,16 @@ import { libroNotFoundError } from "../../domain/libroNotFoundError";
 //     }
 // }
 
-// export class LibroGetOneById {
-//     constructor(private repository: LibroRepository) {}
+export class LibroGetOneById {
+    constructor(private repository: LibroRepository) {}
 
-//     async run(id: string): Promise<libro> {
-//         return await this.repository.searchByMongoId(id);
-//     }
-// }
+    async run(id: string): Promise<libro> {
+    const result = await this.repository.searchByMongoId(id);
+
+    if (!result) {
+        throw new Error("Libro no encontrado");
+    }
+
+    return result; // aquí ya es tipo libro
+}
+}

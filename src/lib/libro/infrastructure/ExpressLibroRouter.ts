@@ -16,6 +16,8 @@ const ExpressLibroRouter = Router();
 ExpressLibroRouter.get("/list", controller.getAll);
 ExpressLibroRouter.put("/update/:id", upload.single("archivo"),(req, res, next) => controller.edit(req, res, next));
 ExpressLibroRouter.delete("/delete/:id", controller.delete); 
+ExpressLibroRouter.get("/descargarPDF/:id", controller.descargarPDF);
+
 // ExpressLibroRouter.get("/findById/:id", controller.getOneById);
 ExpressLibroRouter.post(
   "/libros",
