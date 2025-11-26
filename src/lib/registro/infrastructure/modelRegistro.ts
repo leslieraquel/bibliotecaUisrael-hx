@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { ObjectId } from "mongodb";
+
 
 export interface IRegistroDocument extends Document {
-  id: string;
+  _id: ObjectId;
   prestamoDate: Date;
   devolucionDate: Date;
   estado: string;
@@ -15,14 +17,12 @@ export interface IRegistroDocument extends Document {
 }
 
 const RegistroSchema = new Schema<IRegistroDocument>({
-  id: { type: String, required: true, unique: true },
+  // id: { type: String, required: true, unique: true },
   prestamoDate: { type: Date, required: true },
   devolucionDate: { type: Date, required: true },
   estado: { type: String, required: true },
   idLibro: { type: String, required: true },
-  idEstudiante: { type: String, required: true },
-  createdAt: { type: Date, required: true },
-  updateAt: { type: Date, required: true },
+  idEstudiante: { type: String, required: true }
 
 });
 

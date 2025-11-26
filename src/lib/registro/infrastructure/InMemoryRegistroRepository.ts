@@ -13,13 +13,28 @@ import { registroIdLibro } from "../domain/registroIdLibro";
 
 
 export class InMemoryRegistroRepository implements RegistroRepository {
-  async create(reg: registro): Promise<void> {
-    const primitive = reg.mapToPrimitives();
-    await registroModel.create({
-      ...primitive,
-      updateAt: reg.updateAt.value,
-    });
-  }
+
+  private toDomain(d: any): registro {
+          return new registro(
+            new registroId(d._id.toString()),
+            new registroPrestamo(d.prestamoDate),
+            new registroDevolucion(d.registroDevolucion),
+            new registroEstado(d.estado),
+            new registroIdLibro(d.idLibro),
+            new registroIdEstudiante(d.idEstudiante),
+            new registroCreateAt(d.createdAt),
+            new registroUpdateAt(d.updateAt)
+          );
+      }
+    
+    
+      async create(lib: registro): Promise<void> {
+        const primitive = lib.mapToPrimitives();
+        await registroModel.create({
+          ...primitive,
+          updateAt: lib.updateAt.value,
+        });
+      }
 
   async getAll(): Promise<registro[]> {
     const docs = await registroModel.find().lean();
@@ -57,7 +72,7 @@ export class InMemoryRegistroRepository implements RegistroRepository {
 
   async edit(lib: registro): Promise<void> {
     await registroModel.updateOne(
-      { id: lib.id.value },
+      { id: lib.id?.value },
       {
         $set: {
           prestamoDate: lib.prestamoDate.value,

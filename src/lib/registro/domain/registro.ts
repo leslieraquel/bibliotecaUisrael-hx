@@ -9,8 +9,7 @@ import { registroIdEstudiante } from "./registroIdEstudiante";
 
 
 export class registro {
-
-    id: registroId;
+    id?: registroId | null
     prestamoDate: registroPrestamo; 
     devolucionDate: registroDevolucion; 
     estado: registroEstado; 
@@ -21,7 +20,7 @@ export class registro {
 
 
     constructor(
-    id: registroId,
+    id: registroId | null,
     prestamoDate: registroPrestamo,
     devolucionDate: registroDevolucion,
     estado: registroEstado,
@@ -47,7 +46,7 @@ export class registro {
 
     public mapToPrimitives() {
         return {
-            id: this.id.value,
+            id: this.id?.value ?? null,
             prestamoDate: this.prestamoDate.value,
             devolucionDate: this.devolucionDate.value,
             estado: this.estado.value,

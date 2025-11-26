@@ -38,8 +38,7 @@ export class ExpressRegistroController {
     async create(req: Request, res: Response, next: NextFunction) {
         try {
             // Campos específicos del registro
-            const { id, prestamoDate, devolucionDate, estado,idLibro,idEstudiante, createdAt } = req.body as {
-                id: string;
+            const { prestamoDate, devolucionDate, estado,idLibro,idEstudiante, createdAt } = req.body as {
                 prestamoDate: string;
                 devolucionDate: string;
                 estado: string; // Ej: 'ACTIVO'
@@ -51,7 +50,6 @@ export class ExpressRegistroController {
 
             // Llama al caso de uso para crear el registro
             await RegistroServices.registro.create.run(
-                id,
                 new Date(prestamoDate),
                 new Date(devolucionDate),
                 estado,
@@ -62,7 +60,7 @@ export class ExpressRegistroController {
             );
 
             // Devuelve 201 Created y el objeto creado
-            const createdRegistro = { id, prestamoDate, devolucionDate, estado, createdAt };
+            const createdRegistro = {prestamoDate, devolucionDate, estado, createdAt };
             return res.status(201).json(createdRegistro); 
 
         } catch (error) {

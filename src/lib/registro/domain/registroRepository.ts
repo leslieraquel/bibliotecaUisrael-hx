@@ -8,3 +8,5 @@ export interface RegistroRepository {
     edit(registro: registro): Promise<void>;
     delete(id: registroId): Promise<void>;
 }
+
+    

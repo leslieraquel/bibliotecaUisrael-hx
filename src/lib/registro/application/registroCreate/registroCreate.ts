@@ -15,7 +15,7 @@ export class RegistroCreate {
     
     constructor(private repository: RegistroRepository) {}
     async run(
-        id: string,
+        // id: string,
         prestamoDate: Date,
         devolucionDate: Date,
         estado: string,
@@ -27,7 +27,7 @@ export class RegistroCreate {
     ): Promise<void> {
         
         const registroEntity = new registro(
-            new registroId(id),
+            null,
             new registroPrestamo(prestamoDate),
             new registroDevolucion(devolucionDate),
             new registroEstado(estado),

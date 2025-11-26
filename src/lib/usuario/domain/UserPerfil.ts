@@ -7,8 +7,8 @@ export class UserPerfil {
     }
 
     private ensureIsValid() {
-        if (this.value.length < 1) {
-            throw new Error("La longitud debe ser mayor a 1 carácter");
-        }
+        // if (this.value.length < 1) {
+        //     throw new Error("La longitud debe ser mayor a 1 carácter");
+        // }
     }
 }
