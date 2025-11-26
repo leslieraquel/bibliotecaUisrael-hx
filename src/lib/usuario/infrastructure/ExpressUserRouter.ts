@@ -11,6 +11,7 @@ ExpressUserRouter.put("/update/:ci", controller.edit);
 ExpressUserRouter.delete("/delete/:ci", controller.delete); 
 ExpressUserRouter.get("/findById/:ci", controller.getOneById);
 
+ExpressUserRouter.get('/check-ci/:ci', controller.checkCi);ExpressUserRouter.get('/check-name/:name', controller.checkName);
 const authController = new ExpressAuthController();
 const ExpressAuthRouter = Router();
 
