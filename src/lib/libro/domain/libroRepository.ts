@@ -8,4 +8,6 @@ export interface LibroRepository {
     searchByMongoId(id: string): Promise<libro | null>;
     edit(libro: libro): Promise<void>;
     delete(id: libroId): Promise<void>;
+    findByIds(ids: string[]): Promise<libro[]>;
+    findNotInIds(ids: string[]): Promise<libro[]>;
 }

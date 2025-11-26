@@ -26,6 +26,7 @@ export class libro {
     estado:libroEstado;
     createdAt: libroCreatedAt;
     updateAt: libroUpdateAt;
+    public embedding: number[] = [] 
 
     constructor(
         id: libroId | null,
@@ -39,6 +40,7 @@ export class libro {
         estado:libroEstado,
         createdAt: libroCreatedAt,
         updateAt: libroUpdateAt,
+        embedding: number[] = [] 
     ) {
         this.id = id;
         this.title = title;
@@ -51,6 +53,7 @@ export class libro {
         this.estado= estado;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
+        this.embedding = embedding;
     }
 
 
@@ -72,6 +75,7 @@ export class libro {
             estado:this.estado.value,
             createdAt: this.createdAt.value,
             updateAt: this.updateAt.value,
+            embedding: this.embedding,
         };
     }
     public updateTitle(newTitle: libroTitle): void {

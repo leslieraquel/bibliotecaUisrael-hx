@@ -25,7 +25,8 @@ export class UserLogin {
             ci: user.ci.value,
             tipo: user.type.value,
             name: user.name.value,
-            email: user.email.value
+            email: user.email.value,
+            typeperfil:user.typeperfil.value
         });
         
         // Crear sesión con token y datos del usuario

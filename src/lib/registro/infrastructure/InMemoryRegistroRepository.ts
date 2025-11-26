@@ -91,4 +91,23 @@ export class InMemoryRegistroRepository implements RegistroRepository {
   async delete(id: registroId): Promise<void> {
     await registroModel.deleteOne({ id: id.value });
   }
+
+  async findByUsuario(idUsuario: string): Promise<registro[]> {
+  // Buscar registros cuyo idEstudiante coincida
+  const docs = await registroModel.find({ idEstudiante: idUsuario }).lean();
+
+  // Convertir a dominio
+  return docs.map(d => 
+    new registro(
+      new registroId(d._id.toString()),
+      new registroPrestamo(d.prestamoDate),
+      new registroDevolucion(d.devolucionDate),
+      new registroEstado(d.estado),
+      new registroIdLibro(d.idLibro),
+      new registroIdEstudiante(d.idEstudiante),
+      new registroCreateAt(d.createdAt),
+      new registroUpdateAt(d.updateAt)
+    )
+  );
+}
 }

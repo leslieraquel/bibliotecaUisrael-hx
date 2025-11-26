@@ -101,4 +101,56 @@ export class InMemoryLibroRepository implements LibroRepository {
   async delete(id: libroId): Promise<void> {
     await LibroModel.deleteOne({ id: id.value });
   }
+
+  async findByIds(ids: string[]): Promise<libro[]> {
+    const docs = await LibroModel.find({ _id: { $in: ids } })
+    .populate("idAutor", "name")   // población del autor
+    .lean();
+
+    // Convertir los documentos a objetos de dominio
+    // if (!d.idAutor) throw new Error(`Libro ${d._id} no tiene idAutor`);
+    return docs.map(d => {
+    if (!d._id) throw new Error('Libro con _id nulo');
+    if (!d.idAutor) throw new Error(`Libro ${d._id} no tiene idAutor`);
+
+  return new libro(
+      new libroId(d._id.toString()),
+      new libroTitle(d.title),
+      new libroIsbn(d.isbn),
+      new libroEditorial(d.editorial),
+      new libroYear(d.year),
+      new libroIdAutor(d.idAutor._id.toString()),
+      new libroSinopsis(d.sinopsis),
+      new libroArchivo(d.archivo),
+      new libroEstado(d.estado),
+      new libroCreatedAt(d.createdAt),
+      new libroUpdateAt(d.updateAt)
+  );
+});
+  }
+  async findNotInIds(ids: string[]): Promise<libro[]> {
+  // Mongoose: $nin = "not in"
+  const docs = await LibroModel.find({ _id: { $nin: ids } })
+    .populate("idAutor", "name")  // si quieres poblar autor
+    .lean();
+
+  return docs.map(d => {
+    if (!d._id) throw new Error('Libro con _id nulo');
+    if (!d.idAutor?._id) throw new Error(`Libro ${d._id} no tiene autor`);
+
+    return new libro(
+      new libroId(d._id.toString()),
+      new libroTitle(d.title),
+      new libroIsbn(d.isbn),
+      new libroEditorial(d.editorial),
+      new libroYear(d.year),
+      new libroIdAutor(d.idAutor._id.toString()),
+      new libroSinopsis(d.sinopsis),
+      new libroArchivo(d.archivo),
+      new libroEstado(d.estado),
+      new libroCreatedAt(d.createdAt),
+      new libroUpdateAt(d.updateAt)
+    );
+  });
+}
 }

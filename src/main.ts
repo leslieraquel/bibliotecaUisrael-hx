@@ -30,6 +30,8 @@ app.use("/api/users", ExpressUserRouter);
 app.use("/api/auth", ExpressAuthRouter);
 
 
+
+
 app.get('/', (req, res) => {
   res.send('Servidor funcionando');
 });

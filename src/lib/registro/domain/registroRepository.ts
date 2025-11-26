@@ -7,6 +7,7 @@ export interface RegistroRepository {
     getOneById(id: registroId): Promise<registro | null>;
     edit(registro: registro): Promise<void>;
     delete(id: registroId): Promise<void>;
+    findByUsuario(idUsuario: string): Promise<registro[]>;
 }
 
     
